@@ -1,0 +1,446 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Mono:wght@400;700&family=Josefin+Sans:wght@400;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --cream:#F5F0DC;--mustard:#E8B84B;--orange:#D4541A;--teal:#2E8B7A;
+  --pink:#E8527A;--navy:#1A2744;--brown:#6B3A1F;--yellow:#FFE033;
+  --cyan:#00C4BB;--red:#FF3355;--white:#FFFEF7;
+}
+.app{font-family:'Josefin Sans',sans-serif;background:var(--cream);min-height:100vh;overflow-x:hidden;}
+
+/* NAV */
+.nav{background:var(--navy);padding:0;display:flex;overflow-x:auto;scrollbar-width:none;border-bottom:3px solid var(--mustard);}
+.nav::-webkit-scrollbar{display:none;}
+.nav-btn{flex-shrink:0;padding:12px 18px;background:none;border:none;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#aaa;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-3px;transition:color .2s,border-color .2s;}
+.nav-btn.active{color:var(--yellow);border-bottom-color:var(--yellow);}
+.nav-btn:hover{color:var(--cyan);}
+
+/* SECTIONS */
+.section{display:none;animation:fadeIn .4s ease;}
+.section.visible{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* HERO */
+.hero{background:var(--navy);padding:2.5rem 1.5rem 2rem;text-align:center;position:relative;overflow:hidden;}
+.hero-circles{position:absolute;inset:0;pointer-events:none;}
+.hc{position:absolute;border-radius:50%;opacity:.15;}
+.hc1{width:200px;height:200px;background:var(--mustard);top:-60px;left:-60px;}
+.hc2{width:140px;height:140px;background:var(--pink);bottom:-40px;right:-30px;}
+.hc3{width:80px;height:80px;background:var(--cyan);top:20px;right:60px;}
+.hero-badge{display:inline-block;background:var(--orange);color:var(--cream);font-size:10px;letter-spacing:3px;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:1rem;font-family:'Space Mono',monospace;position:relative;z-index:1;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,7vw,3.8rem);font-weight:900;color:var(--yellow);line-height:1.05;text-shadow:4px 4px 0 var(--orange);margin-bottom:.6rem;position:relative;z-index:1;animation:titlePop .6s cubic-bezier(.34,1.56,.64,1);}
+@keyframes titlePop{from{transform:scale(.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+.hero-sub{font-size:clamp(.8rem,2.5vw,1rem);color:var(--cyan);letter-spacing:3px;text-transform:uppercase;font-family:'Space Mono',monospace;position:relative;z-index:1;}
+.dots-row{display:flex;justify-content:center;gap:8px;margin-top:1.5rem;position:relative;z-index:1;}
+.dot{width:10px;height:10px;border-radius:50%;animation:dotPulse 2s infinite;}
+.dot:nth-child(1){background:var(--mustard);animation-delay:0s;}
+.dot:nth-child(2){background:var(--pink);animation-delay:.2s;}
+.dot:nth-child(3){background:var(--cyan);animation-delay:.4s;}
+.dot:nth-child(4){background:var(--orange);animation-delay:.6s;}
+.dot:nth-child(5){background:var(--yellow);animation-delay:.8s;}
+.dot:nth-child(6){background:var(--mustard);animation-delay:1s;}
+@keyframes dotPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.5);}}
+.hero-cta{margin-top:1.5rem;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;position:relative;z-index:1;}
+.cta-btn{padding:9px 20px;border-radius:3px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;cursor:pointer;border:2px solid;transition:all .15s;font-weight:700;}
+.cta-teal{background:var(--teal);color:#fff;border-color:var(--teal);}
+.cta-teal:hover{background:transparent;color:var(--cyan);border-color:var(--cyan);}
+.cta-pink{background:var(--pink);color:#fff;border-color:var(--pink);}
+.cta-pink:hover{background:transparent;color:var(--pink);border-color:var(--pink);}
+
+/* SECTION LABEL */
+.sec-label{display:flex;align-items:center;gap:12px;padding:1.8rem 1.5rem .6rem;}
+.sec-line{flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--mustard) 0 8px,transparent 8px 14px);}
+.sec-text{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--brown);}
+
+/* COMPARE TABLE */
+.compare-wrap{padding:0 1rem 1.5rem;}
+.compare-title{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,4vw,2rem);font-weight:700;color:var(--navy);padding-bottom:.8rem;border-bottom:4px solid var(--mustard);margin-bottom:1rem;}
+.aspect-card{background:var(--white);border:2.5px solid var(--navy);border-radius:4px;margin-bottom:.8rem;overflow:hidden;box-shadow:4px 4px 0 var(--navy);transform:translateX(-30px);opacity:0;transition:transform .4s ease,opacity .4s ease,box-shadow .2s;}
+.aspect-card.revealed{transform:translateX(0);opacity:1;}
+.aspect-card:hover{box-shadow:6px 6px 0 var(--orange);transform:translateY(-2px);}
+.aspect-header{background:var(--navy);color:var(--yellow);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;}
+.aspect-body{display:grid;grid-template-columns:1fr 1fr;}
+.aspect-col{padding:10px 14px;font-size:clamp(.78rem,2vw,.88rem);line-height:1.5;color:var(--navy);}
+.aspect-col:first-child{border-right:2px dashed var(--mustard);}
+.col-badge{display:inline-block;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:10px;font-family:'Space Mono',monospace;font-weight:700;margin-bottom:5px;}
+.badge-dc{background:var(--teal);color:#fff;}
+.badge-cj{background:var(--pink);color:#fff;}
+
+/* POP STRIP */
+.pop-strip{background:var(--mustard);border-top:3px solid var(--navy);border-bottom:3px solid var(--navy);padding:1rem 1.5rem;display:flex;align-items:center;gap:12px;margin:1.2rem 0;animation:slideIn .5s ease;}
+@keyframes slideIn{from{transform:translateX(-20px);opacity:0;}to{transform:translateX(0);opacity:1;}}
+.pop-quote-mark{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;color:var(--navy);line-height:1;flex-shrink:0;}
+.pop-quote-text{font-family:'Playfair Display',serif;font-size:clamp(.85rem,2.5vw,1.1rem);font-weight:700;color:var(--navy);font-style:italic;line-height:1.4;}
+
+/* FLIP CARDS */
+.flip-section{padding:0 1rem 1.5rem;}
+.flip-title{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,4vw,1.8rem);font-weight:700;color:#fff;display:inline-block;padding:4px 16px;box-shadow:4px 4px 0 var(--navy);margin-bottom:1rem;}
+.flip-title.teal-bg{background:var(--teal);}
+.flip-title.pink-bg{background:var(--pink);}
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin-bottom:.8rem;}
+.flip-card{height:130px;cursor:pointer;perspective:1000px;}
+.flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1);}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;border:2.5px solid var(--navy);border-radius:4px;padding:12px;}
+.flip-front{background:var(--white);display:flex;flex-direction:column;justify-content:space-between;}
+.flip-back{background:var(--navy);transform:rotateY(180deg);display:flex;align-items:center;justify-content:center;}
+.flip-front-num{font-family:'Space Mono',monospace;font-size:11px;color:var(--mustard);font-weight:700;}
+.flip-front-title{font-family:'Space Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--orange);font-weight:700;}
+.flip-front-hint{font-size:10px;color:var(--teal);font-family:'Space Mono',monospace;align-self:flex-end;}
+.flip-front-hint.cj-hint{color:var(--pink);}
+.flip-back-text{font-size:clamp(.75rem,2vw,.82rem);color:var(--cream);line-height:1.5;text-align:center;}
+.flip-card.dc-card .flip-front{box-shadow:4px 4px 0 var(--mustard);}
+.flip-card.cj-card .flip-front{box-shadow:4px 4px 0 var(--pink);}
+.tap-hint{text-align:center;font-size:11px;color:var(--brown);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:.8rem;}
+
+/* EXAMPLE BOX */
+.example-box{background:var(--navy);border-radius:4px;padding:12px 16px;display:flex;align-items:flex-start;gap:10px;margin-bottom:1.5rem;}
+.ex-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--yellow);flex-shrink:0;padding-top:2px;}
+.ex-text{font-size:clamp(.78rem,2vw,.85rem);color:var(--cream);line-height:1.5;font-style:italic;}
+
+/* RELATIONSHIP DIAGRAM */
+.rel-section{padding:0 1rem 1.5rem;}
+.venn-wrap{background:var(--white);border:2.5px solid var(--navy);border-radius:4px;overflow:hidden;box-shadow:6px 6px 0 var(--teal);}
+.venn-header{background:var(--orange);padding:10px 16px;color:#fff;font-family:'Playfair Display',serif;font-size:clamp(1rem,3vw,1.3rem);font-weight:700;}
+.venn-body{padding:1rem 1rem .5rem;}
+.venn-diagram{display:flex;align-items:center;gap:0;margin-bottom:1rem;}
+.venn-circle{flex:1;padding:16px 12px;border-radius:8px;text-align:center;min-height:120px;display:flex;flex-direction:column;justify-content:center;transition:transform .2s;}
+.venn-circle:hover{transform:scale(1.03);}
+.vc-dc{background:#e1f5ee;border:2.5px solid var(--teal);}
+.vc-cj{background:#fbeaf0;border:2.5px solid var(--pink);}
+.vc-title{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.vc-dc .vc-title{color:#085041;}
+.vc-cj .vc-title{color:#72243E;}
+.vc-items{font-size:clamp(.72rem,1.8vw,.8rem);line-height:1.6;}
+.vc-dc .vc-items{color:#0F6E56;}
+.vc-cj .vc-items{color:#993556;}
+.venn-arrow{font-size:1.5rem;color:var(--mustard);font-weight:700;padding:0 6px;flex-shrink:0;}
+.venn-notes{padding:.2rem 0 .8rem;}
+.venn-note{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px dashed var(--mustard);}
+.venn-note:last-child{border-bottom:none;}
+.vn-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;font-family:'Space Mono',monospace;}
+.vn-teal{background:var(--teal);color:#fff;}
+.vn-pink{background:var(--pink);color:#fff;}
+.vn-nav{background:var(--navy);color:var(--yellow);}
+.vn-text{font-size:clamp(.78rem,2vw,.88rem);color:var(--navy);line-height:1.5;}
+.highlight-t{color:var(--teal);font-weight:700;}
+.highlight-p{color:var(--pink);font-weight:700;}
+
+/* SUMMARY */
+.summary-section{padding:0 1rem 1.5rem;}
+.sum-banner{background:var(--navy);border-radius:4px;padding:1.5rem;text-align:center;border:2.5px solid var(--mustard);}
+.sum-title{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,4vw,1.8rem);font-weight:900;color:var(--yellow);text-shadow:2px 2px 0 var(--orange);margin-bottom:1.2rem;}
+.sum-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:1.2rem;}
+.sum-pill{border-radius:30px;padding:10px 20px;font-family:'Space Mono',monospace;font-size:clamp(.72rem,2vw,.85rem);font-weight:700;line-height:1.4;max-width:280px;text-align:left;cursor:pointer;transition:transform .15s;border:2.5px solid transparent;}
+.sum-pill:hover{transform:scale(1.04);}
+.sp-teal{background:var(--teal);color:#fff;border-color:var(--mustard);}
+.sp-pink{background:var(--pink);color:#fff;border-color:var(--mustard);}
+.burst-row{display:flex;justify-content:center;gap:16px;margin-top:.8rem;}
+.burst{position:relative;width:80px;height:80px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s;}
+.burst:hover{transform:rotate(15deg) scale(1.1);}
+.burst svg{position:absolute;top:0;left:0;}
+.burst-text{font-family:'Playfair Display',serif;font-size:9px;font-weight:900;text-align:center;color:var(--navy);position:relative;z-index:1;line-height:1.3;}
+.progress-bar-wrap{background:var(--cream);border:2.5px solid var(--navy);border-radius:4px;padding:1rem;margin-top:1rem;}
+.pb-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--brown);margin-bottom:.5rem;text-transform:uppercase;}
+.pb-track{background:#ddd;height:12px;border-radius:6px;overflow:hidden;margin-bottom:.5rem;}
+.pb-fill{height:100%;border-radius:6px;transition:width 1s ease;}
+.pb-teal{background:var(--teal);width:0;}
+.pb-pink{background:var(--pink);width:0;}
+.pb-row{display:flex;justify-content:space-between;font-size:11px;color:var(--navy);font-family:'Space Mono',monospace;}
+
+/* FOOTER */
+.retro-footer{background:var(--brown);padding:1.2rem;text-align:center;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--mustard);text-transform:uppercase;border-top:3px solid var(--mustard);}
+
+/* QUIZ */
+.quiz-section{padding:0 1rem 1.5rem;}
+.quiz-card{background:var(--white);border:2.5px solid var(--navy);border-radius:4px;padding:1.2rem;box-shadow:5px 5px 0 var(--mustard);margin-bottom:1rem;}
+.quiz-q{font-family:'Playfair Display',serif;font-size:clamp(1rem,3vw,1.2rem);font-weight:700;color:var(--navy);margin-bottom:.8rem;}
+.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;}
+.quiz-opt{padding:8px 12px;border:2px solid var(--navy);border-radius:4px;background:var(--cream);font-size:clamp(.75rem,2vw,.85rem);cursor:pointer;transition:all .15s;font-family:'Josefin Sans',sans-serif;color:var(--navy);font-weight:600;}
+.quiz-opt:hover{background:var(--mustard);border-color:var(--orange);}
+.quiz-opt.correct{background:var(--teal);color:#fff;border-color:var(--teal);}
+.quiz-opt.wrong{background:var(--red);color:#fff;border-color:var(--red);}
+.quiz-feedback{margin-top:.8rem;font-size:.85rem;font-family:'Space Mono',monospace;padding:8px;border-radius:4px;display:none;}
+.quiz-feedback.show{display:block;}
+.quiz-feedback.ok{background:#e1f5ee;color:#085041;}
+.quiz-feedback.no{background:#FCEBEB;color:#791F1F;}
+.quiz-progress{font-family:'Space Mono',monospace;font-size:11px;color:var(--brown);margin-bottom:.8rem;}
+.quiz-nav{display:flex;gap:.6rem;margin-top:.8rem;}
+.q-btn{padding:7px 16px;border:2px solid var(--navy);border-radius:3px;background:var(--navy);color:var(--yellow);font-family:'Space Mono',monospace;font-size:11px;cursor:pointer;font-weight:700;transition:all .15s;}
+.q-btn:hover{background:var(--mustard);color:var(--navy);border-color:var(--mustard);}
+.q-btn:disabled{opacity:.4;cursor:not-allowed;}
+.score-box{background:var(--navy);border-radius:4px;padding:1.5rem;text-align:center;display:none;}
+.score-box.show{display:block;}
+.score-num{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:var(--yellow);text-shadow:3px 3px 0 var(--orange);}
+.score-msg{font-family:'Space Mono',monospace;font-size:11px;color:var(--cream);margin-top:.5rem;letter-spacing:1px;}
+.restart-btn{margin-top:1rem;padding:8px 20px;background:var(--teal);color:#fff;border:2px solid var(--mustard);border-radius:3px;font-family:'Space Mono',monospace;font-size:11px;cursor:pointer;font-weight:700;}
+</style>
+
+<h2 class="sr-only">Belajar di Era Digital — Digital Citizen vs Citizen Journalism, tampilan interaktif retro pop art</h2>
+
+<div class="app">
+
+<div class="nav" id="nav">
+  <button class="nav-btn active" onclick="showSection('hero')">Beranda</button>
+  <button class="nav-btn" onclick="showSection('compare')">Perbedaan</button>
+  <button class="nav-btn" onclick="showSection('dc')">Digital Citizen</button>
+  <button class="nav-btn" onclick="showSection('cj')">Citizen Journalism</button>
+  <button class="nav-btn" onclick="showSection('hubungan')">Hubungan</button>
+  <button class="nav-btn" onclick="showSection('summary')">Ringkasan</button>
+  <button class="nav-btn" onclick="showSection('quiz')">Kuis</button>
+</div>
+
+<!-- HERO -->
+<div class="section visible" id="sec-hero">
+  <div class="hero">
+    <div class="hero-circles"><div class="hc hc1"></div><div class="hc hc2"></div><div class="hc hc3"></div></div>
+    <div class="hero-badge">MKDI4202 · Tugas 2</div>
+    <h1 class="hero-title">Belajar di Era<br>Digital</h1>
+    <p class="hero-sub">Digital Citizen vs Citizen Journalism</p>
+    <div class="dots-row"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="hero-cta">
+      <button class="cta-btn cta-teal" onclick="showSection('compare')">Lihat Perbedaan →</button>
+      <button class="cta-btn cta-pink" onclick="showSection('quiz')">Mulai Kuis →</button>
+    </div>
+  </div>
+  <div class="pop-strip">
+    <div class="pop-quote-mark">"</div>
+    <div class="pop-quote-text">Warga digital yang baik bukan hanya konsumen informasi — mereka adalah penjaga kebenaran di era konten tanpa batas.</div>
+  </div>
+  <div style="padding:0 1rem 1.5rem;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;">
+      <div onclick="showSection('dc')" style="background:var(--white);border:2.5px solid var(--navy);border-radius:4px;padding:1rem;box-shadow:4px 4px 0 var(--teal);cursor:pointer;text-align:center;transition:transform .15s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:1.4rem;margin-bottom:.4rem;color:var(--teal);">◉</div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--teal);font-weight:700;">Digital<br>Citizen</div>
+      </div>
+      <div onclick="showSection('cj')" style="background:var(--white);border:2.5px solid var(--navy);border-radius:4px;padding:1rem;box-shadow:4px 4px 0 var(--pink);cursor:pointer;text-align:center;transition:transform .15s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:1.4rem;margin-bottom:.4rem;color:var(--pink);">◎</div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--pink);font-weight:700;">Citizen<br>Journalism</div>
+      </div>
+      <div onclick="showSection('hubungan')" style="background:var(--white);border:2.5px solid var(--navy);border-radius:4px;padding:1rem;box-shadow:4px 4px 0 var(--mustard);cursor:pointer;text-align:center;transition:transform .15s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:1.4rem;margin-bottom:.4rem;color:var(--mustard);">⊕</div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--brown);font-weight:700;">Hubungan<br>Keduanya</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPARE -->
+<div class="section" id="sec-compare">
+  <div class="sec-label"><div class="sec-line"></div><span class="sec-text">Pembeda Utama</span><div class="sec-line"></div></div>
+  <div class="compare-wrap">
+    <div class="compare-title">Apa bedanya?</div>
+    <div class="aspect-card" id="ac0"><div class="aspect-header">Pengertian</div><div class="aspect-body"><div class="aspect-col"><span class="col-badge badge-dc">Digital Citizen</span><br>Warga yang aktif dan bertanggung jawab di dunia digital</div><div class="aspect-col"><span class="col-badge badge-cj">Citizen Journalism</span><br>Praktik jurnalisme oleh warga biasa (non-profesional)</div></div></div>
+    <div class="aspect-card" id="ac1"><div class="aspect-header">Fokus Utama</div><div class="aspect-body"><div class="aspect-col"><span class="col-badge badge-dc">Digital Citizen</span><br>Partisipasi digital secara umum</div><div class="aspect-col"><span class="col-badge badge-cj">Citizen Journalism</span><br>Produksi dan penyebaran berita/informasi publik</div></div></div>
+    <div class="aspect-card" id="ac2"><div class="aspect-header">Ruang Lingkup</div><div class="aspect-body"><div class="aspect-col"><span class="col-badge badge-dc">Digital Citizen</span><br>Sangat luas: sosmed, e-commerce, e-gov, pendidikan</div><div class="aspect-col"><span class="col-badge badge-cj">Citizen Journalism</span><br>Lebih sempit: khusus aktivitas jurnalistik</div></div></div>
+    <div class="aspect-card" id="ac3"><div class="aspect-header">Pelaku</div><div class="aspect-body"><div class="aspect-col"><span class="col-badge badge-dc">Digital Citizen</span><br>Semua pengguna teknologi digital</div><div class="aspect-col"><span class="col-badge badge-cj">Citizen Journalism</span><br>Warga biasa yang bertindak sebagai "jurnalis"</div></div></div>
+    <div class="aspect-card" id="ac4"><div class="aspect-header">Tujuan</div><div class="aspect-body"><div class="aspect-col"><span class="col-badge badge-dc">Digital Citizen</span><br>Partisipasi, kolaborasi, belajar, bertransaksi, ekspresi</div><div class="aspect-col"><span class="col-badge badge-cj">Citizen Journalism</span><br>Memberitakan peristiwa, mengawasi kekuasaan, melengkapi media mainstream</div></div></div>
+  </div>
+</div>
+
+<!-- DIGITAL CITIZEN -->
+<div class="section" id="sec-dc">
+  <div class="sec-label"><div class="sec-line"></div><span class="sec-text">Digital Citizen</span><div class="sec-line"></div></div>
+  <div class="flip-section">
+    <div class="flip-title teal-bg">5 Karakteristik Utama</div>
+    <p class="tap-hint">— ketuk kartu untuk detail —</p>
+    <div class="flip-grid">
+      <div class="flip-card dc-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="flip-front-num">01</div><div class="flip-front-title">Literasi Digital Tinggi</div><div class="flip-front-hint">ketuk →</div></div><div class="flip-back"><div class="flip-back-text">Memahami cara kerja internet, algoritma, keamanan data, dan verifikasi informasi secara kritis.</div></div></div></div>
+      <div class="flip-card dc-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="flip-front-num">02</div><div class="flip-front-title">Etika & Tanggung Jawab</div><div class="flip-front-hint">ketuk →</div></div><div class="flip-back"><div class="flip-back-text">Menghormati privasi, tidak menyebar hoaks, berperilaku sopan, dan sadar hak digital.</div></div></div></div>
+      <div class="flip-card dc-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="flip-front-num">03</div><div class="flip-front-title">Partisipasi Aktif</div><div class="flip-front-hint">ketuk →</div></div><div class="flip-back"><div class="flip-back-text">Menggunakan platform digital untuk belajar, berbisnis, berpolitik, bersosialisasi, dan beradvokasi.</div></div></div></div>
+      <div class="flip-card dc-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="flip-front-num">04</div><div class="flip-front-title">Kritis terhadap Konten</div><div class="flip-front-hint">ketuk →</div></div><div class="flip-back"><div class="flip-back-text">Mampu membedakan fakta dan opini, bijak dalam konsumsi dan produksi konten digital.</div></div></div></div>
+      <div class="flip-card dc-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="flip-front-num">05</div><div class="flip-front-title">Inklusif</div><div class="flip-front-hint">ketuk →</div></div><div class="flip-back"><div class="flip-back-text">Mendukung akses digital yang merata dan membantu orang lain yang kurang melek digital.</div></div></div></div>
+    </div>
+    <div class="example-box"><span class="ex-label">Contoh</span><span class="ex-text">Seseorang aktif di sosmed, selalu cek fakta sebelum share, melindungi data pribadinya, dan menggunakan internet untuk produktivitas.</span></div>
+  </div>
+</div>
+
+<!-- CITIZEN JOURNALISM -->
+<div class="section" id="sec-cj">
+  <div class="sec-label"><div class="sec-line"></div><span class="sec-text">Citizen Journalism</span><div class="sec-line"></div></div>
+  <div class="flip-section">
+    <div class="flip-title pink-bg">6 Karakteristik Utama</div>
+    <p class="tap-hint">— ketuk kartu untuk detail —</p>
+    <div class="flip-grid">
+      <div class="flip-card cj-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="flip-front-num">01</div><div class="flip-front-title">Produksi Konten Berita</div><div class="flip-front-hint cj-hint">ketuk →</div></div><div class="flip-back"><div class="flip-back-text">Meliput peristiwa, wawancara, foto/video, dan menyebarkannya sebagai laporan publik nyata.</div></div></div></div>
+      <div class="flip-card cj-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="flip-front-num">02</div><div class="flip-front-title">Non-Profesional</div><div class="flip-front-hint cj-hint">ketuk →</div></div><div class="flip-back"><div class="flip-back-text">Tidak dibayar media, tidak punya latar jurnalistik formal — biasanya hanya bermodal smartphone.</div></div></div></div>
+      <div class="flip-card cj-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="flip-front-num">03</div><div class="flip-front-title">Cepat & Langsung</div><div class="flip-front-hint cj-hint">ketuk →</div></div><div class="flip-back"><div class="flip-back-text">Sering menjadi sumber pertama berita (eyewitness reporting) saat bencana, demonstrasi, atau kecelakaan.</div></div></div></div>
+      <div class="flip-card cj-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="flip-front-num">04</div><div class="flip-front-title">Perspektif dari Bawah</div><div class="flip-front-hint cj-hint">ketuk →</div></div><div class="flip-back"><div class="flip-back-text">Memberi sudut pandang yang tidak ter-cover media mainstream — suara yang biasanya tak terdengar.</div></div></div></div>
+      <div class="flip-card cj-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="flip-front-num">05</div><div class="flip-front-title">Bergantung Digital Tools</div><div class="flip-front-hint cj-hint">ketuk →</div></div><div class="flip-back"><div class="flip-back-text">Mengandalkan sosmed (X/Twitter, Instagram, TikTok, YouTube, blog) untuk distribusi konten.</div></div></div></div>
+      <div class="flip-card cj-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="flip-front-num">06</div><div class="flip-front-title">Tantangan Etika</div><div class="flip-front-hint cj-hint">ketuk →</div></div><div class="flip-back"><div class="flip-back-text">Sering kurang verifikasi, bias subjektif, dan kadang melanggar etika jurnalistik seperti privasi atau sensasionalisme.</div></div></div></div>
+    </div>
+    <div class="example-box"><span class="ex-label">Contoh</span><span class="ex-text">Warga yang merekam demonstrasi dan mengunggahnya ke Twitter dengan hashtag, atau membuat blog tentang isu lingkungan di daerahnya.</span></div>
+  </div>
+</div>
+
+<!-- HUBUNGAN -->
+<div class="section" id="sec-hubungan">
+  <div class="sec-label"><div class="sec-line"></div><span class="sec-text">Hubungan Keduanya</span><div class="sec-line"></div></div>
+  <div class="rel-section">
+    <div class="venn-wrap">
+      <div class="venn-header">Bagaimana keduanya terhubung?</div>
+      <div class="venn-body">
+        <div class="venn-diagram">
+          <div class="venn-circle vc-dc"><div class="vc-title">Digital Citizen</div><div class="vc-items">Fondasi luas<br>Semua pengguna<br>digital aktif<br>Literasi & etika<br>digital</div></div>
+          <div class="venn-arrow">⊃</div>
+          <div class="venn-circle vc-cj"><div class="vc-title">Citizen Journalism</div><div class="vc-items">Sub-set khusus<br>Warga sebagai<br>jurnalis<br>Produksi berita<br>publik</div></div>
+        </div>
+        <div class="venn-notes">
+          <div class="venn-note"><div class="vn-icon vn-teal">◉</div><div class="vn-text"><span class="highlight-t">Digital Citizen</span> adalah fondasi yang lebih luas — mencakup semua bentuk partisipasi digital yang bertanggung jawab.</div></div>
+          <div class="venn-note"><div class="vn-icon vn-pink">◎</div><div class="vn-text"><span class="highlight-p">Citizen Journalism</span> adalah ekspresi tertinggi dari digital citizenship — ketika warga tidak hanya mengonsumsi, tapi memproduksi informasi publik bermanfaat.</div></div>
+          <div class="venn-note"><div class="vn-icon vn-nav">→</div><div class="vn-text">Bisa jadi <span class="highlight-t">Digital Citizen</span> tanpa pernah melakukan citizen journalism, tapi hampir semua <span class="highlight-p">citizen journalist</span> yang bertanggung jawab adalah digital citizen yang baik.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="section" id="sec-summary">
+  <div class="sec-label"><div class="sec-line"></div><span class="sec-text">Ringkasan</span><div class="sec-line"></div></div>
+  <div class="summary-section">
+    <div class="sum-banner">
+      <div class="sum-title">Ringkasan Singkat</div>
+      <div class="sum-pills">
+        <div class="sum-pill sp-teal">Digital Citizen = Warga digital yang baik dan bertanggung jawab secara umum</div>
+        <div class="sum-pill sp-pink">Citizen Journalism = Warga yang melakukan tugas jurnalisme menggunakan kemampuan digitalnya</div>
+      </div>
+      <div class="burst-row">
+        <div class="burst" title="WOW!"><svg width="80" height="80" viewBox="0 0 80 80"><polygon points="40,2 47,28 72,16 55,37 80,40 55,43 72,64 47,52 40,78 33,52 8,64 25,43 0,40 25,37 8,16 33,28" fill="#E8B84B" stroke="#1A2744" stroke-width="1.5"/></svg><div class="burst-text">WOW!<br>GREAT</div></div>
+        <div class="burst" title="POW!"><svg width="80" height="80" viewBox="0 0 80 80"><polygon points="40,2 47,28 72,16 55,37 80,40 55,43 72,64 47,52 40,78 33,52 8,64 25,43 0,40 25,37 8,16 33,28" fill="#E8527A" stroke="#1A2744" stroke-width="1.5"/></svg><div class="burst-text">POW!<br>SMART</div></div>
+      </div>
+    </div>
+    <div class="progress-bar-wrap" id="pbWrap">
+      <div class="pb-label">Cakupan Digital Citizen vs Citizen Journalism</div>
+      <div style="margin-bottom:.5rem;font-family:'Space Mono',monospace;font-size:10px;color:var(--brown);">Digital Citizen (lingkup luas)</div>
+      <div class="pb-track"><div class="pb-fill pb-teal" id="pbTeal"></div></div>
+      <div style="margin-bottom:.5rem;font-family:'Space Mono',monospace;font-size:10px;color:var(--brown);">Citizen Journalism (sub-set)</div>
+      <div class="pb-track"><div class="pb-fill pb-pink" id="pbPink"></div></div>
+      <div class="pb-row"><span style="color:var(--teal);font-weight:700;">Lebih Luas</span><span style="color:var(--pink);font-weight:700;">Lebih Spesifik</span></div>
+    </div>
+    <div style="margin-top:.8rem;text-align:center;"><button class="q-btn" onclick="showSection('quiz')">Uji Pemahaman — Kuis →</button></div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="section" id="sec-quiz">
+  <div class="sec-label"><div class="sec-line"></div><span class="sec-text">Kuis Pemahaman</span><div class="sec-line"></div></div>
+  <div class="quiz-section">
+    <div class="quiz-card" id="quizCard">
+      <div class="quiz-progress" id="quizProg">Soal 1 dari 5</div>
+      <div class="quiz-q" id="quizQ"></div>
+      <div class="quiz-opts" id="quizOpts"></div>
+      <div class="quiz-feedback" id="quizFB"></div>
+      <div class="quiz-nav"><button class="q-btn" id="nextBtn" onclick="nextQ()" disabled>Soal Berikutnya →</button></div>
+    </div>
+    <div class="score-box" id="scoreBox">
+      <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--mustard);letter-spacing:2px;margin-bottom:.5rem;">HASIL AKHIR</div>
+      <div class="score-num" id="scoreNum">0/5</div>
+      <div class="score-msg" id="scoreMsg"></div>
+      <button class="restart-btn" onclick="restartQuiz()">Ulangi Kuis</button>
+    </div>
+  </div>
+</div>
+
+<div class="retro-footer">MKDI4202 · Tugas 2 · Belajar di Era Digital · 2539</div>
+</div>
+
+<script>
+const sections=['hero','compare','dc','cj','hubungan','summary','quiz'];
+function showSection(id){
+  sections.forEach(s=>{
+    document.getElementById('sec-'+s).classList.remove('visible');
+    document.querySelectorAll('.nav-btn').forEach((b,i)=>{
+      if(sections[i]===id)b.classList.add('active'); else b.classList.remove('active');
+    });
+  });
+  document.getElementById('sec-'+id).classList.add('visible');
+  if(id==='compare') setTimeout(revealCards,100);
+  if(id==='summary') setTimeout(animateBars,300);
+}
+function revealCards(){
+  [0,1,2,3,4].forEach((i)=>{
+    setTimeout(()=>{
+      const el=document.getElementById('ac'+i);
+      if(el) el.classList.add('revealed');
+    },i*100);
+  });
+}
+function animateBars(){
+  const t=document.getElementById('pbTeal');
+  const p=document.getElementById('pbPink');
+  if(t){setTimeout(()=>{t.style.width='90%';},100);}
+  if(p){setTimeout(()=>{p.style.width='40%';},200);}
+}
+
+const questions=[
+  {q:'Apa fokus utama dari Digital Citizen?',opts:['Produksi berita publik','Partisipasi digital secara umum','Meliput peristiwa langsung','Hanya bermain media sosial'],ans:1,exp:'Digital Citizen berfokus pada partisipasi digital secara umum — belajar, berbisnis, bersosialisasi, dll.'},
+  {q:'Siapa yang melakukan Citizen Journalism?',opts:['Jurnalis media mainstream','Editor koran nasional','Warga biasa non-profesional','Hanya mahasiswa jurnalistik'],ans:2,exp:'Citizen Journalism dilakukan oleh warga biasa (non-profesional) yang bertindak sebagai "jurnalis".'},
+  {q:'Manakah pernyataan yang BENAR tentang hubungan keduanya?',opts:['Citizen Journalism lebih luas dari Digital Citizen','Digital Citizen adalah sub-set dari Citizen Journalism','Digital Citizen adalah fondasi yang lebih luas','Keduanya tidak memiliki hubungan sama sekali'],ans:2,exp:'Digital Citizen adalah fondasi yang lebih luas. Citizen Journalism adalah salah satu ekspresi tertingginya.'},
+  {q:'Apa tantangan etika utama dalam Citizen Journalism?',opts:['Terlalu banyak verifikasi fakta','Sering kurang verifikasi dan bias subjektif','Terlalu profesional dan kaku','Tidak menggunakan teknologi digital'],ans:1,exp:'Citizen Journalism sering menghadapi tantangan kurang verifikasi, bias subjektif, dan pelanggaran etika jurnalistik.'},
+  {q:'Seorang warga yang selalu cek fakta sebelum share dan melindungi data pribadinya adalah contoh dari?',opts:['Citizen Journalist','Digital Native saja','Digital Citizen yang baik','Jurnalis profesional'],ans:2,exp:'Ini adalah contoh tipikal Digital Citizen — aktif, literasi tinggi, etis, dan bertanggung jawab dalam dunia digital.'},
+];
+let cur=0,score=0,answered=false;
+function loadQ(){
+  const q=questions[cur];
+  document.getElementById('quizProg').textContent=`Soal ${cur+1} dari ${questions.length}`;
+  document.getElementById('quizQ').textContent=q.q;
+  const opts=document.getElementById('quizOpts');
+  opts.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='quiz-opt';
+    b.textContent=o;
+    b.onclick=()=>answerQ(i,b);
+    opts.appendChild(b);
+  });
+  const fb=document.getElementById('quizFB');
+  fb.className='quiz-feedback';
+  fb.textContent='';
+  document.getElementById('nextBtn').disabled=true;
+  answered=false;
+}
+function answerQ(i,btn){
+  if(answered)return;
+  answered=true;
+  const q=questions[cur];
+  const allBtns=document.querySelectorAll('.quiz-opt');
+  allBtns.forEach(b=>b.style.pointerEvents='none');
+  const fb=document.getElementById('quizFB');
+  if(i===q.ans){
+    btn.classList.add('correct');
+    score++;
+    fb.className='quiz-feedback show ok';
+    fb.textContent='Benar! '+q.exp;
+  } else {
+    btn.classList.add('wrong');
+    allBtns[q.ans].classList.add('correct');
+    fb.className='quiz-feedback show no';
+    fb.textContent='Kurang tepat. '+q.exp;
+  }
+  const nb=document.getElementById('nextBtn');
+  nb.disabled=false;
+  nb.textContent=cur<questions.length-1?'Soal Berikutnya →':'Lihat Hasil';
+}
+function nextQ(){
+  cur++;
+  if(cur>=questions.length){
+    document.getElementById('quizCard').style.display='none';
+    const sb=document.getElementById('scoreBox');
+    sb.classList.add('show');
+    document.getElementById('scoreNum').textContent=score+'/'+questions.length;
+    const msgs=['Ayo pelajari lagi materinya!','Cukup baik, terus belajar!','Bagus sekali!','Hampir sempurna!','Sempurna! Kamu paham betul!'];
+    document.getElementById('scoreMsg').textContent=msgs[Math.min(score,4)];
+    return;
+  }
+  loadQ();
+}
+function restartQuiz(){
+  cur=0;score=0;answered=false;
+  document.getElementById('quizCard').style.display='';
+  document.getElementById('scoreBox').classList.remove('show');
+  loadQ();
+}
+loadQ();
+</script>
